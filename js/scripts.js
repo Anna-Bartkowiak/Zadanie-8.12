@@ -11,6 +11,10 @@ ukrywanieElementow(statusGry);
 
 function newGame() {
 	player.name = prompt('Wpisz swoje imię');
+	if (player.name == '') {
+		player.name = 'Gracz';
+	}
+	
 	var newName = document.getElementById('js-playerName');
 	newName.innerText = player.name;
 	statusGry = 1;
@@ -23,7 +27,7 @@ newGameBtn.addEventListener('click', function () {newGame()});
 function ukrywanieElementow(statusGry) {
 	if (statusGry==0) {
 		document.getElementById("plansza").style.visibility = "hidden";
-	} else if (statusGry==1) {
+	} else if ((statusGry==1) || (statusGry==10)) {
 		document.getElementById("plansza").style.visibility = "visible";
 		document.getElementById("js-newGameElement").style.visibility = "hidden";
 	}
@@ -84,7 +88,38 @@ function checkRoundWinner(playerPick, computerPick) {
 		player.score++; 
 	} else if (winnerIs == 'computer') { 
 		computerResultElem.innerHTML = "Wygrana!"; 
-		computer.score++; } 
+		computer.score++; 
+		} 
+		setGamePoints();
+		ktoWygral();
 	}
 
-	function setGamePoints() { playerPointsElem.innerHTML = player.score; computerPointsElem.innerHTML = computer.score; }
+	var playerPointsElem = document.getElementById('js-playerPoints'),
+		computerPointsElem = document.getElementById('js-computerPoints');
+
+	function setGamePoints() { 
+		playerPointsElem.innerHTML = player.score; 
+		computerPointsElem.innerHTML = computer.score; 
+	}
+
+	function ktoWygral() {
+		if ((player.score == 10) || (computer.score == 10)) {
+			document.getElementById("plansza").style.visibility = "hidden";
+			document.getElementById("js-newGameElement").style.visibility = "visible";
+			var endGame = document.getElementById('js-newGameButton');
+			if (player.score == 10) {
+				endGame.innerText = 'Wygrales! Zagraj jeszcze raz!';
+			} else {
+				endGame.innerText = 'Przegrales :( Zagraj jeszcze raz!';
+			}
+			player.name = '';
+			player.score = 0;
+			computer.score = 0;
+			setGamePoints();
+			playerPickElem.innerText = 'Wybor gracza';
+			computerPickElem.innerText = 'Wybor komputer';
+			playerResultElem.innerText = 'Wynik gracza';
+			computerResultElem.innerText = 'Wynik komputera';
+			console.log('Imie gracza: ' + player.name + ' Punkty gracza: ' + player.score + ' Punkty komputer: ' + computer.score);
+		}
+	}
