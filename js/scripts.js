@@ -45,12 +45,46 @@ pickScissors.addEventListener('click', function() {
 	playerPick('scissors') 
 });
 
+var playerPickElem = document.getElementById('js-playerPick'), 
+	computerPickElem = document.getElementById('js-computerPick'), 
+	playerResultElem = document.getElementById('js-playerResult'), 
+	computerResultElem = document.getElementById('js-computerResult');
+
 function playerPick(wyborGracza) { 
-	var losowanieKomputera
-	console.log(wyborGracza); 
+	var wyborKomputera = getComputerPick();
+	console.log('wybór gracza: ' + wyborGracza + '   wybór komputera: ' + wyborKomputera); 
+
+	playerPickElem.innerHTML = wyborGracza; 
+	computerPickElem.innerHTML = wyborKomputera;
+
+	checkRoundWinner(wyborGracza, wyborKomputera);
 }
 
 function getComputerPick() { 
 	var possiblePicks = ['rock', 'paper', 'scissors']; 
 	return possiblePicks[Math.floor(Math.random()*3)]; 
 }
+
+function checkRoundWinner(playerPick, computerPick) { 
+	playerResultElem.innerHTML = computerResultElem.innerHTML = ''; 
+
+	var winnerIs = 'player'; 
+
+	if (playerPick == computerPick) { 
+		winnerIs = 'noone'; // remis 
+	} else if ( 
+		(computerPick == 'rock' && playerPick == 'scissors') || 
+		(computerPick == 'scissors' && playerPick == 'paper') || 
+		(computerPick == 'paper' && playerPick == 'rock') ) { 
+
+		winnerIs = 'computer'; 
+	} 
+	if (winnerIs == 'player') { 
+		playerResultElem.innerHTML = "Wygrana!"; 
+		player.score++; 
+	} else if (winnerIs == 'computer') { 
+		computerResultElem.innerHTML = "Wygrana!"; 
+		computer.score++; } 
+	}
+
+	function setGamePoints() { playerPointsElem.innerHTML = player.score; computerPointsElem.innerHTML = computer.score; }
