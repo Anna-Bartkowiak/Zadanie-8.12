@@ -12,9 +12,9 @@ var CONSTANTS = {
     END_GAME: 10,
     SCISSORS: 'Scissors',
     ROCK: 'Rock',
-    PAPER: 'Paper'
+    PAPER: 'Paper',
     MAX_POINTS: 10,
-}
+};
 
 var statusGry = CONSTANTS.INITIALIZE;
 
@@ -33,7 +33,7 @@ function newGame() {
 
 var newGameBtn = document.getElementById('js-newGameButton'); 
 newGameBtn.addEventListener('click', function () {
-	newGame()
+	newGame();
 });
 
 function ukrywanieElementow(statusGry) {
@@ -42,7 +42,14 @@ function ukrywanieElementow(statusGry) {
 	} else if ((statusGry==CONSTANTS.START_GAME) || (statusGry==CONSTANTS.END_GAME)) {
 		document.getElementById("plansza").style.visibility = "visible";
 		document.getElementById("js-newGameElement").style.visibility = "hidden";
-		
+		player.name = '';
+		player.score = 0;
+		computer.score = 0;
+		setGamePoints();
+		playerPickElem.innerText = 'Wybor gracza';
+		computerPickElem.innerText = 'Wybor komputera';
+		playerResultElem.innerText = 'Wynik gracza';
+		computerResultElem.innerText = 'Wynik komputera';		
 	}
 }
 
@@ -51,15 +58,15 @@ var pickRock = document.getElementById('js-playerPick_rock'),
 	pickScissors = document.getElementById('js-playerPick_scissors'); 
 
 pickRock.addEventListener('click', function() { 
-	playerPick(CONSTANTS.ROCK) 
+	playerPick(CONSTANTS.ROCK);
 }); 
 
 pickPaper.addEventListener('click', function() { 
-	playerPick(CONSTANTS.PAPER) 
+	playerPick(CONSTANTS.PAPER);
 }); 
 
 pickScissors.addEventListener('click', function() { 
-	playerPick(CONSTANTS.SCISSORS) 
+	playerPick(CONSTANTS.SCISSORS);
 });
 
 var playerPickElem = document.getElementById('js-playerPick'), 
