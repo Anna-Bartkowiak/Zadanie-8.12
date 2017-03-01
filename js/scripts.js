@@ -85,7 +85,7 @@ function playerPick(wyborGracza) {
 }
 
 function getComputerPick() { 
-	var possiblePicks = ['rock', 'paper', 'scissors']; 
+	var possiblePicks = [CONSTANTS.PAPER, CONSTANTS.ROCK, CONSTANTS.SCISSORS]; 
 	return possiblePicks[Math.floor(Math.random()*3)]; 
 }
 
@@ -137,14 +137,6 @@ function ktoWygral() {
 		} else {
 			endGame.innerText = 'Przegrales :( Zagraj jeszcze raz!';
 		}
-		player.name = '';
-		player.score = 0;
-		computer.score = 0;
-		setGamePoints();
-		playerPickElem.innerText = 'Wybor gracza';
-		computerPickElem.innerText = 'Wybor komputer';
-		playerResultElem.innerText = 'Wynik gracza';
-		computerResultElem.innerText = 'Wynik komputera';
 		console.log('Imie gracza: ' + player.name + ' Punkty gracza: ' + player.score + ' Punkty komputer: ' + computer.score);
 	}
 }
